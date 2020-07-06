@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-
+from backend.serializer import NemSerializer
 
 DJANGO_SU_NAME = environ.get('DJANGO_SU_NAME', 'admin')
 DJANGO_SU_EMAIL = environ.get('DJANGO_SU_EMAIL', '')
@@ -59,6 +59,9 @@ class ReadNem(object):
             for key, value in key_column_mapping.items():
                 record_data[key] = str(parse_datetime(str(column_values[value]))) if value == 14 else str(column_values[value])
 
+            serialzer_object = NemSerializer(data=record_data)
+            if serialzer_object.is_valid():
+                serialzer_object.save()
 
     def validate_record_indicator550(self):
         data = self.data[self.data[0] == 550]
