@@ -1,11 +1,9 @@
 from django.db import models
 
-# Create your models here.
-
 
 class NemData(models.Model):
     """
-    This model save the details of citizen in Paranuara.
+    This model save the row details of Nem 13 file for indicator 250.
     """
     nmi = models.CharField(max_length=128, blank=True, null=True)
     serialNumber = models.CharField(max_length=128, blank=True, null=True)
